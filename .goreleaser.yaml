@@ -4,6 +4,12 @@ before:
   hooks:
     - go mod tidy
 
+project_name: pomedoq
+release:
+  github:
+    owner: p12se
+    name: pomedoq
+
 builds:
   - env:
       - CGO_ENABLED=0
