@@ -1,11 +1,11 @@
 signs:
   - artifacts: checksum
 
-project_name: pomidoq
+project_name: pomedoq
 dist: .bin
 builds:
-  - id: pomidoq
-    binary: "pomidoq"
+  - id: pomedoq
+    binary: "pomedoq"
     env:
       - CGO_ENABLED=0
     goos:
@@ -30,7 +30,7 @@ builds:
 
 
 archives:
-  - id: pomidoq
+  - id: pomedoq
     name_template: >-
       {{.ProjectName}}_
       {{- .Tag}}_
