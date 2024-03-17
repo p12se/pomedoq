@@ -1,6 +1,6 @@
 module pomedoq
 
-go 1.22.0
+go 1.22
 
 require (
 	github.com/prometheus/common v0.50.0
