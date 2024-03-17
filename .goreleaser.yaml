@@ -1,17 +1,12 @@
-version: 1
+signs:
+  - artifacts: checksum
 
-before:
-  hooks:
-    - go mod tidy
-
-project_name: pomedoq
-release:
-  github:
-    owner: p12se
-    name: pomedoq
-
+project_name: pomidoq
+dist: .bin
 builds:
-  - env:
+  - id: pomidoq
+    binary: "pomidoq"
+    env:
       - CGO_ENABLED=0
     goos:
       - linux
@@ -19,26 +14,36 @@ builds:
       - windows
     goarch:
       - amd64
+      - arm
       - arm64
-      - 386
+    ignore:
+      - goos: freebsd
+        goarch: arm
+      - goos: freebsd
+        goarch: arm64
+      - goos: windows
+        goarch: arm
+      - goos: windows
+        goarch: arm64
+    dir: .
+    ldflags: "-s -w -X main.revision={{.Tag}}-{{.ShortCommit}}-{{.CommitDate}}"
+
+
 archives:
-  - format: tar.gz
-    # this name template makes the OS and Arch compatible with the results of `uname`.
+  - id: pomidoq
     name_template: >-
-      {{ .ProjectName }}_
-      {{- title .Os }}_
-      {{- if eq .Arch "amd64" }}x86_64
-      {{- else if eq .Arch "386" }}i386
-      {{- else }}{{ .Arch }}{{ end }}
-      {{- if .Arm }}v{{ .Arm }}{{ end }}
-    # use zip for windows archives
+      {{.ProjectName}}_
+      {{- .Tag}}_
+      {{- if eq .Os "darwin"}}macos
+      {{- else if eq .Os "windows"}}win
+      {{- else}}{{.Os}}{{end}}_
+      {{- if eq .Arch "amd64"}}x86_64
+      {{- else if eq .Arch "386"}}i386
+      {{- else}}{{.Arch}}{{end}}
     format_overrides:
       - goos: windows
         format: zip
-
-changelog:
-  sort: asc
-  filters:
-    exclude:
-      - "^docs:"
-      - "^test:"
+    files:
+      - LICENSE
+      - README.md
+    rlcp: true

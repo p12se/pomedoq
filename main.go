@@ -9,6 +9,8 @@ import (
 	"github.com/prometheus/common/expfmt"
 )
 
+var revision = "unknown"
+
 // MetricDetail represents a single metric's details.
 type MetricDetail struct {
 	Name        string   // Name of the metric
@@ -92,6 +94,8 @@ func GenerateDocumentation(metrics []*MetricDetail) string {
 // main is the entry point of the program.
 // It fetches the metrics from a given URL and prints the generated documentation.
 func main() {
+	fmt.Println("pomidoq: revision: ", revision)
+
 	metrics, err := FetchMetrics("http://localhost:8081/metrics")
 	if err != nil {
 		fmt.Printf("Error fetching metrics: %v\n", err)
