@@ -1,4 +1,4 @@
-module pomedoq
+module github.com/p12se/pomedoq
 
 go 1.22
 
