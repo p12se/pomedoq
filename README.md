@@ -27,5 +27,5 @@ Pomedoq is a tool that generates markdown documentation for prometheus metrics. 
 ## Install with go install
 This method requires [Go](https://go.dev) to be installed on your system.
 ```bash
-`go get -u github.com/p12se/pomedoq@latest`
+go get -u github.com/p12se/pomedoq@latest
 ```
